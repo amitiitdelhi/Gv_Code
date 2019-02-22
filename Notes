@@ -1,0 +1,101 @@
+TensorFlow Installation :
+
+—Create a conda virtual environment named tensorflow (python =2.7 means python 2.7 will be used in this env & all anaconda packages corresponding to python 2.7 will be installed in this env)
+conda create -n tensorflow python=2.7 anaconda
+
+—Activate the previously created virtual environment
+conda activate tensor-flow
+
+—Install tensorflow(version 1.1) in this virtual env
+conda install -c conda-forge tensorflow
+
+—Deactivate this virtual env
+conda deactivate
+
+===================================================
+
+Syntax :
+
+To enable mouse in Vim editor
+:set mouse=a
+
+
+/root/Analytics-Engine/classifier/src/main/scala/com/guavus/analytics/ae/classifier/Ensembler.scala
+
+
+Imports not working inside class but working okay outside the class in Scala : 
+https://stackoverflow.com/questions/38726173/scala-case-class-ignoring-import-in-the-spark-shell
+
+Run iPython On Remote Server :
+On Remote Server : 
+jupyter-notebook —no-browser —port=8889 —ip=*
+
+jupyter-notebook —Notebook.token=‘ ’ —config ~./jupyter/jupyter_notebook_config.py
+
+Run iPython On Local Server : 
+ssh -N -f -L localhost:8888:localhost:8889 root@172.30.11.41
+In case port 8888 is not available/ already binded, kill its binding process using below command : 
+lsof -ti:8888 | xargs kill -9
+
+To change config file for iPython
+jupyter notebook —generate-config 
+
+iptables --flush.   // to resolve ip issues on remote server
+
+To change ip config when facing issues with pip install on a server
+
+Change IP/DNS addresses in above file
+vi /etc/sysconfig/network-scripts/ifcfg-em1
+Restart the network
+systemctl restart network
+
+Search for Tags on Alexa website via Google
+site:alexa.com careers job search employment
+
+Clear cache on server for python processes
+sync; echo 3 > /proc/sys/vm/drop_caches 
+
+============================================================
+
+ncome Tax Computation :
+
+
+Income => 547,205.99 + 1158848.00 = 1706054
+Section 80 C -> 150000
+Section 80 D -> 10350
+
+Income left - 1545704
+Tax to be paid -> .2*500000 + .3*545704 +250000*.05  = 100000 + 163711.2 + 12500= 276211 + 3%(Education Cess) = 284498
+
+Tax deducted -> 49650 + 239525.00 = 289175 
+ 
+
+================================================================
+
+Spark
+
+View Yarn Logs - yarn logs -applicationId <Enter application ID here > | less 
+For example : yarn logs -applicationId application_1491853469269_0202 | less
+
+Kill Yarn Applciation ID :
+yarn application -kill <ApplicationId>
+
+To view health of HDFS :
+<IP>:50070
+
+To add server names to their IP addresses - sudo vi /etc/hosts
+
+Spark Command: /usr/java/latest/bin/java -cp /opt/spark/conf/:/opt/spark/jars/*:/etc/hadoop/conf/:/etc/hadoop/conf/:/usr/lib/hadoop/lib/*:/usr/lib/hadoop/.//*:/usr/lib/hadoop-hdfs/./:/usr/lib/hadoop-hdfs/lib/*:/usr/lib/hadoop-hdfs/.//*:/usr/lib/hadoop-yarn/lib/*:/usr/lib/hadoop-yarn/.//*:/usr/lib/hadoop-mapreduce/lib/*:/usr/lib/hadoop-mapreduce/.//* -Xmx10240M org.apache.spark.deploy.SparkSubmit --status local-1504168840612
+
+To view the error logs:
+less /var/log/spark/spark-master.out
+
+Command to start the yarn resourcemanager - yarn resourcemanager
+
+Location of yarn config file - /etc/hadoop/conf/yarn-site.xml
+
+Driver mem - 60g, Executor mem - 25g, num_exec - 4, cores_per_exec - 2. — Was able to build LogReg model with this config
+Driver mem - 60g, Executor mem - 30g, num_exec - 4, cores_per_exec - 2, reparition(48) — Was able to run entire LogReg code with this config on AE cluster
+
+Spark Shell Hive Issue On AE Cluster (172.30.11.42)
+On namenode1 (172.30.11.41), we put all jars related to hive in a temporary folder(/opt/spark/jars/spark_shell_issue) to stop hive from starting. Initially we weren’t getting scala prompt, but now we are after doing the previously mentioned change
